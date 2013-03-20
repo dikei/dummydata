@@ -1,0 +1,9 @@
+{
+  "name": "dummydata",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "*",
+    "bower": "*",
+    "grunt-exec": "*"
+  }
+}
