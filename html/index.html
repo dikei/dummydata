@@ -41,8 +41,8 @@
                             <option value="type-state">State</option>
                             <option value="type-county">County</option>
                             <option value="type-country">Country</option>
-                            <option value="type-latitude">Latitude</option>
-                            <option value="type-longitude">Longitude</option>
+                            <!--<option value="type-latitude">Latitude</option>-->
+                            <!--<option value="type-longitude">Longitude</option>-->
                         </optgroup>
                         <optgroup label="Internet">
                             <option value="type-email">Email</option>
@@ -52,21 +52,19 @@
                             <option value="type-ip">IP</option>
                         </optgroup>
                         <optgroup label="Company">
-                            <option value="type-suffixes">Suffixes</option>
                             <option value="type-company-name">Company Name</option>
                             <option value="type-company-suffix">Company Suffix</option>
                             <option value="type-catch-phrase">Catch Phrase</option>
                         </optgroup>
                         <optgroup label="Text">
-                            <option value="type-words">Words</option>
                             <option value="type-sentence">Sentence</option>
                             <option value="type-sentences">Sentences</option>
                             <option value="type-paragraph">Paragraph</option>
                             <option value="type-paragraphs">Paragraphs</option>
                         </optgroup>
                         <optgroup label="Other">
-                            <option value="data-type-number">Random number</option>
-                            <option value="data-type-constant">Constant</option>
+                            <option value="type-number">Random number</option>
+                            <!--<option value="type-constant">Constant</option>-->
                         </optgroup>
                     </select>
                 </td>
@@ -82,12 +80,20 @@
             <input id="more-row" type="number" data-ng-model="addMore"/>
         </div>
         <button data-ng-click="addRow()"><i class="icon-plus"></i>Add</button>
+        <button data-ng-click="generate()"><i class="icon-refresh"></i>Generate</button>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <label for="debug-input">Debug input</label>
+            <pre id="debug-input">{{ columns | json }}</pre>
+        </div>
     </div>
 
     <div class="row-fluid">
         <div class="span12">
             <label for="debug-output">Debug output</label>
-            <pre id="debug-output">{{ columns | json }}</pre>
+            <pre id="debug-output">{{ datas | json }}</pre>
         </div>
     </div>
 </div>
@@ -95,6 +101,7 @@
 <script type="text/javascript" src="../components/angular/angular.js"></script>
 <script type="text/javascript" src="../components/jquery/jquery.js"></script>
 <script type="text/javascript" src="../components/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../components/faker/Faker.js"></script>
 <script type="text/javascript" src="../js/controllers.js"></script>
 </body>
 </html>
