@@ -1,9 +1,10 @@
 {
-  "name": "dummydata",
-  "version": "0.0.1",
-  "dependencies": {
-    "angular" : "~1.0.5",
-    "bootstrap": "~2.3.1",
-    "jquery": "~1.9"
+    "name": "dummydata",
+    "version": "0.0.1",
+    "dependencies": {
+        "angular" : "~1.0.5",
+        "bootstrap": "~2.3.1",
+        "jquery": "~1.9",
+        "faker": "git@github.com:Marak/Faker.js.git#~0.5.7"
   }
 }

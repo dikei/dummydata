@@ -20,7 +20,15 @@ module.exports = function(grunt) {
                            'rm -rf bootstrap && ' + 
                            'mv bootstrap-build bootstrap ';
                 },
-                stdout: false
+            },
+            build_faker: {
+                cmd: function() {
+                    return 'cd components/faker && ' +
+                           'npm install && ' +
+                           'make build && ' +
+                           'ls | grep -v Faker.js | xargs rm -rf && ' +
+                           'rm -rf .??* '
+                }
             }
         }
     });
@@ -39,6 +47,9 @@ module.exports = function(grunt) {
         
         //Build bootstrap
         grunt.task.run('exec:build_bootstrap');
+
+        //Build faker.js
+        grunt.task.run('exec:build_faker');
     });
     
     
