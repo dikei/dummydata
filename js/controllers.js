@@ -16,7 +16,7 @@ function InputController($scope) {
 
     $scope.datas = {};
 
-    $scope.addRow = function() {
+    $scope.addColumn = function() {
         var count = 0;
         while(count < $scope.addMore) {
             ++count;
@@ -27,7 +27,7 @@ function InputController($scope) {
         }
     }
 
-    $scope.deleteRow = function(index) {
+    $scope.deleteColumn = function(index) {
         $scope.columns.remove(index);
     }
 

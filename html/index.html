@@ -69,17 +69,17 @@
                     </select>
                 </td>
                 <td>
-                    <button class="btn btn-small" data-ng-click="deleteRow($index)"><i class="icon-trash"></i></button>
+                    <button class="btn btn-small" data-ng-click="deleteColumn($index)"><i class="icon-trash"></i></button>
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="row-fluid">
         <div>
-            <label for="more-row">Add more rows</label>
+            <label for="more-row">Add more columns</label>
             <input id="more-row" type="number" data-ng-model="addMore"/>
         </div>
-        <button data-ng-click="addRow()"><i class="icon-plus"></i>Add</button>
+        <button data-ng-click="addColumn()"><i class="icon-plus"></i>Add</button>
         <button data-ng-click="generate()"><i class="icon-refresh"></i>Generate</button>
     </div>
 
