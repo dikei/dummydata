@@ -1,3 +1,10 @@
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+};
+
 function InputController($scope) {
     $scope.addMore = 1;
     $scope.columns = [
@@ -16,5 +23,9 @@ function InputController($scope) {
                 type: ""
             });
         }
+    }
+
+    $scope.deleteRow = function(index) {
+        $scope.columns.remove(index);
     }
 }
