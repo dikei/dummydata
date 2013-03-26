@@ -18,6 +18,7 @@ function InputController($scope) {
         name: "default",
         datas: "",
         rowCount: 1,
+        deleteFirst: false,
         options: {
             autoQuoteTableNames: false,
             autoQuoteFieldNames: false
@@ -69,8 +70,13 @@ function InputController($scope) {
 
     $scope.generate = function() {
         var datas = [];
+        var query = "";
+        if($scope.table.deleteFirst) {
+            query = squel.delete($scope.table.options).from($scope.table.name);
+            datas.push(query.toString());
+        }
         for(var j = 0; j < $scope.table.rowCount; j++) {
-            var query = squel.insert($scope.table.options).into($scope.table.name);
+            query = squel.insert($scope.table.options).into($scope.table.name);
             for(var i = 0; i < $scope.columns.length; i++) {
                 var column = $scope.columns[i];
                 var func = funcMap[column.type][0];
