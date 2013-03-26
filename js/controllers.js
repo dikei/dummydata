@@ -7,6 +7,7 @@ Array.prototype.remove = function(from, to) {
 
 function InputController($scope) {
     $scope.addMore = 1;
+    $scope.tableName = "default";
     $scope.columns = [
         {
             name: "",
@@ -60,8 +61,9 @@ function InputController($scope) {
     };
 
     $scope.generate = function() {
-        var datas = {};
+        var datas = [];
         for(var i = 0; i < $scope.columns.length; i++) {
+            var query = squel.insert().into($scope.tableName);
             var column = $scope.columns[i];
             var func = funcMap[column.type][0];
             var functhis = funcMap[column.type][1];
@@ -69,7 +71,8 @@ function InputController($scope) {
             if(funcMap[column.type].length == 3) {
                 funcargs = funcMap[column.type][2]
             }
-            datas[column.name] = func.apply(functhis, funcargs);
+            query.set(column.name, func.apply(functhis, funcargs));
+            datas.push(query.toString())
         }
         $scope.datas = datas;
     }
