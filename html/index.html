@@ -138,14 +138,22 @@
                         </label>
                     </div>
                 </div>
-                <button data-ng-click="generate()" class="btn btn-primary">
-                    <i class="icon-refresh icon-white"></i>
-                    Generate
-                </button>
+                <div class="control-group">
+                    <div class="controls">
+                        <button data-ng-click="generate()" class="btn btn-primary">
+                            <i class="icon-refresh icon-white"></i>
+                            Generate
+                        </button>
+                        <button id="copy-button" data-clipboard-target="dataout" class="btn btn-info">
+                            <i class="icon-hdd icon-white"></i>
+                            Copy
+                        </button>
+                    </div>
+                </div>
             </form>
 
             <div class="row-fluid">
-                <textarea rows="10" class="span12" data-ng-model="table.datas"></textarea>
+                <textarea rows="10" id="dataout" class="span12" data-ng-model="table.datas"></textarea>
             </div>
         </div>
     </div>
@@ -157,6 +165,7 @@
 <script type="text/javascript" src="../components/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="../components/faker/Faker.js"></script>
 <script type="text/javascript" src="../components/squel/index.js"></script>
+<script type="text/javascript" src="../components/zeroclipboard/ZeroClipboard.js"></script>
 <script type="text/javascript" src="../js/controllers.js"></script>
 </body>
 </html>

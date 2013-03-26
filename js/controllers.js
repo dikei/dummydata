@@ -6,6 +6,13 @@ Array.prototype.remove = function(from, to) {
 };
 
 function InputController($scope) {
+    var clip = new ZeroClipboard(document.getElementById("copy-button"), {
+        moviePath: "../components/zeroclipboard/ZeroClipboard.swf"
+    });
+    clip.on('complete', function(){
+        alert('Data copied');
+    });
+
     $scope.addMore = 1;
     $scope.columns = [
         {
@@ -21,8 +28,8 @@ function InputController($scope) {
         deleteFirst: false,
         statementType: "insert",
         options: {
-            autoQuoteTableNames: false,
-            autoQuoteFieldNames: false
+            autoQuoteTableNames: true,
+            autoQuoteFieldNames: true
         }
     };
 
@@ -77,7 +84,6 @@ function InputController($scope) {
             datas.push(query.toString());
         }
         var statement = $scope.table.statementType;
-        console.log(statement);
         for(var j = 0; j < $scope.table.rowCount; j++) {
             if(statement == 'update') {
                 query = squel.update($scope.table.options).table($scope.table.name);
