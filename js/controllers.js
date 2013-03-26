@@ -7,7 +7,6 @@ Array.prototype.remove = function(from, to) {
 
 function InputController($scope) {
     $scope.addMore = 1;
-    $scope.tableName = "default";
     $scope.columns = [
         {
             name: "",
@@ -15,7 +14,15 @@ function InputController($scope) {
         }
     ];
 
-    $scope.datas = {};
+    $scope.table = {
+        name: "default",
+        datas: "",
+        rowCount: 1,
+        options: {
+            autoQuoteTableNames: false,
+            autoQuoteFieldNames: false
+        }
+    };
 
     $scope.addColumn = function() {
         var count = 0;
@@ -26,11 +33,11 @@ function InputController($scope) {
                 type: ""
             });
         }
-    }
+    };
 
     $scope.deleteColumn = function(index) {
         $scope.columns.remove(index);
-    }
+    };
 
     var funcMap = {
         'type-first-name': [Faker.Name.firstName, Faker.Name],
@@ -62,18 +69,20 @@ function InputController($scope) {
 
     $scope.generate = function() {
         var datas = [];
-        for(var i = 0; i < $scope.columns.length; i++) {
-            var query = squel.insert().into($scope.tableName);
-            var column = $scope.columns[i];
-            var func = funcMap[column.type][0];
-            var functhis = funcMap[column.type][1];
-            var funcargs = [];
-            if(funcMap[column.type].length == 3) {
-                funcargs = funcMap[column.type][2]
+        for(var j = 0; j < $scope.table.rowCount; j++) {
+            var query = squel.insert($scope.table.options).into($scope.table.name);
+            for(var i = 0; i < $scope.columns.length; i++) {
+                var column = $scope.columns[i];
+                var func = funcMap[column.type][0];
+                var functhis = funcMap[column.type][1];
+                var funcargs = [];
+                if(funcMap[column.type].length == 3) {
+                    funcargs = funcMap[column.type][2]
+                }
+                query.set(column.name, func.apply(functhis, funcargs));
             }
-            query.set(column.name, func.apply(functhis, funcargs));
-            datas.push(query.toString())
+            datas.push(query.toString());
         }
-        $scope.datas = datas;
-    }
+        $scope.table.datas = datas.join(';\n');
+    };
 }

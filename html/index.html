@@ -10,6 +10,15 @@
 <body>
 <div class="container-fluid" data-ng-controller="InputController">
     <h1>Dummy data generator</h1>
+
+    <div class="row-fluid">
+        <form class="form-inline">
+            <label for="more-row">Add more columns</label>
+            <input id="more-row" type="number" data-ng-model="addMore"/>
+            <button data-ng-click="addColumn()" class="btn"><i class="icon-plus"></i>Add</button>
+        </form>
+    </div>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -74,28 +83,64 @@
             </tr>
         </tbody>
     </table>
-    <div class="row-fluid">
-        <div>
-            <label for="more-row">Add more columns</label>
-            <input id="more-row" type="number" data-ng-model="addMore"/>
+
+    <ul class="nav nav-tabs" id="output-tab">
+        <li class="active"><a href="#sql-tab">SQL</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="sql-tab">
+            <form id="table-form" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label">Row count</label>
+                    <div class="controls">
+                        <input type="number" min="1" id="row-count" placeholder="Number of generated rows" data-ng-model="table.rowCount"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Table name</label>
+                    <div class="controls">
+                        <input type="text" id="table-name" placeholder="Your table name" data-ng-model="table.name"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Choose statement type</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input name="statement-type" type="radio" id="update-statement" checked>
+                            Update
+                        </label>
+                        <label class="radio">
+                            <input name="statement-type" type="radio" name="insert-statement" >
+                            Insert
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Quotes</label>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" id="quote-table" data-ng-model="table.options.autoQuoteTableNames">
+                            Use quote in table name
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="quote-column" data-ng-model="table.options.autoQuoteFieldNames">
+                            Use quote in column name
+                        </label>
+                    </div>
+                </div>
+                <button data-ng-click="generate()" class="btn btn-primary">
+                    <i class="icon-refresh icon-white"></i>
+                    Generate
+                </button>
+            </form>
+
+            <div class="row-fluid">
+                <textarea rows="10" class="span12" data-ng-model="table.datas"></textarea>
+            </div>
         </div>
-        <button data-ng-click="addColumn()"><i class="icon-plus"></i>Add</button>
-        <button data-ng-click="generate()"><i class="icon-refresh"></i>Generate</button>
     </div>
 
-    <div class="row-fluid">
-        <div class="span12">
-            <label for="debug-input">Debug input</label>
-            <pre id="debug-input">{{ columns | json }}</pre>
-        </div>
-    </div>
-
-    <div class="row-fluid">
-        <div class="span12">
-            <label for="debug-output">Debug output</label>
-            <pre id="debug-output">{{ datas | json }}</pre>
-        </div>
-    </div>
 </div>
 
 <script type="text/javascript" src="../components/angular/angular.js"></script>
