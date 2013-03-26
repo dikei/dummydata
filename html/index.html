@@ -107,12 +107,12 @@
                     <label class="control-label">Choose statement type</label>
                     <div class="controls">
                         <label class="radio">
-                            <input name="statement-type" type="radio" id="update-statement" checked>
-                            Update
+                            <input name="statement-type" type="radio" name="insert-statement" value="insert" data-ng-model="table.statementType" data-ng-checked="table.statementType == 'insert'">
+                            Insert
                         </label>
                         <label class="radio">
-                            <input name="statement-type" type="radio" name="insert-statement" >
-                            Insert
+                            <input name="statement-type" type="radio" id="update-statement" value="update" data-ng-model="table.statementType">
+                            Update
                         </label>
                     </div>
                 </div>

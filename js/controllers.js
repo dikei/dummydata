@@ -19,6 +19,7 @@ function InputController($scope) {
         datas: "",
         rowCount: 1,
         deleteFirst: false,
+        statementType: "insert",
         options: {
             autoQuoteTableNames: false,
             autoQuoteFieldNames: false
@@ -75,8 +76,14 @@ function InputController($scope) {
             query = squel.delete($scope.table.options).from($scope.table.name);
             datas.push(query.toString());
         }
+        var statement = $scope.table.statementType;
+        console.log(statement);
         for(var j = 0; j < $scope.table.rowCount; j++) {
-            query = squel.insert($scope.table.options).into($scope.table.name);
+            if(statement == 'update') {
+                query = squel.update($scope.table.options).table($scope.table.name);
+            } else {
+                query = squel.insert($scope.table.options).into($scope.table.name);
+            }
             for(var i = 0; i < $scope.columns.length; i++) {
                 var column = $scope.columns[i];
                 var func = funcMap[column.type][0];
