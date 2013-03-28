@@ -12,102 +12,123 @@
     <h1>Dummy data generator</h1>
 
     <div class="row-fluid">
-        <form class="form-inline">
-            <label for="more-row">Add more columns</label>
-            <input id="more-row" type="number" data-ng-model="addMore"/>
+        <form name="more_form" class="form-inline">
+            <label for="more-column">Add more columns</label>
+            <input id="more-column" type="number" min="1" name="morecolumn" data-ng-model="addMore"/>
             <button data-ng-click="addColumn()" class="btn"><i class="icon-plus"></i>Add</button>
+            <span data-ng-show="more_form.morecolumn.$error.number">This field must be number.</span>
+            <span data-ng-show="more_form.morecolumn.$error.min">This field must be larger than 1.</span>
         </form>
+
     </div>
+    <form novalidate name="form" class="form-horizontal">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Column title</th>
+                    <th>Data type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="column in columns" >
+                    <td>{{$index + 1}}</td>
+                    <td>
+                        <ng-form name="inner_form1">
+                            <input type="text" name="column_name" data-ng-model="column.name" required/>
+                            <div data-ng-show="inner_form1.column_name.$invalid">
+                                <span data-ng-show="inner_form1.column_name.$error.required">This field is required</span>
+                            </div>
+                        </ng-form>
+                    </td>
+                    <td>
+                        <ng-form name="inner_form2">
+                            <select name="type" data-ng-model="column.type" required>
+                                <option value="">Select Data Type</option>
+                                <optgroup label="Personal Data">
+                                    <option value="type-first-name">First Name</option>
+                                    <option value="type-last-name">Last Name</option>
+                                    <option value="type-name">Name</option>
+                                    <option value="type-phone">Phone</option>
+                                </optgroup>
+                                <optgroup label="Address">
+                                    <option value="type-zipcode">ZipCode</option>
+                                    <option value="type-city">City</option>
+                                    <option value="type-street-name">Street Name</option>
+                                    <option value="type-street-address">Street Address</option>
+                                    <option value="type-secondary-address">Secondary Address</option>
+                                    <option value="type-state">State</option>
+                                    <option value="type-county">County</option>
+                                    <option value="type-country">Country</option>
+                                    <!--<option value="type-latitude">Latitude</option>-->
+                                    <!--<option value="type-longitude">Longitude</option>-->
+                                </optgroup>
+                                <optgroup label="Internet">
+                                    <option value="type-email">Email</option>
+                                    <option value="type-user-name">User Name</option>
+                                    <option value="type-domain-name">Domain Name</option>
+                                    <option value="type-domain-word">Domain Word</option>
+                                    <option value="type-ip">IP</option>
+                                </optgroup>
+                                <optgroup label="Company">
+                                    <option value="type-company-name">Company Name</option>
+                                    <option value="type-company-suffix">Company Suffix</option>
+                                    <option value="type-catch-phrase">Catch Phrase</option>
+                                </optgroup>
+                                <optgroup label="Text">
+                                    <option value="type-sentence">Sentence</option>
+                                    <option value="type-sentences">Sentences</option>
+                                    <option value="type-paragraph">Paragraph</option>
+                                    <option value="type-paragraphs">Paragraphs</option>
+                                </optgroup>
+                                <optgroup label="Other">
+                                    <option value="type-number">Random number</option>
+                                    <!--<option value="type-constant">Constant</option>-->
+                                </optgroup>
+                            </select>
+                            <div data-ng-show="inner_form2.type.$invalid">
+                                <span data-ng-show="inner_form2.type.$error.required">This field is required</span>
+                            </div>
+                        </ng-form>
+                    </td>
+                    <td>
+                        <button class="btn btn-small" data-ng-click="deleteColumn($index)"><i class="icon-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Order</th>
-                <th>Column title</th>
-                <th>Data type</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-ng-repeat="column in columns">
-                <td>{{$index + 1}}</td>
-                <td><input type="text" ng-model="column.name"/></td>
-                <td>
-                    <select ng-model="column.type">
-                        <option value="">Select Data Type</option>
-                        <optgroup label="Personal Data">
-                            <option value="type-first-name">First Name</option>
-                            <option value="type-last-name">Last Name</option>
-                            <option value="type-name">Name</option>
-                            <option value="type-phone">Phone</option>
-                        </optgroup>
-                        <optgroup label="Address">
-                            <option value="type-zipcode">ZipCode</option>
-                            <option value="type-city">City</option>
-                            <option value="type-street-name">Street Name</option>
-                            <option value="type-street-address">Street Address</option>
-                            <option value="type-secondary-address">Secondary Address</option>
-                            <option value="type-state">State</option>
-                            <option value="type-county">County</option>
-                            <option value="type-country">Country</option>
-                            <!--<option value="type-latitude">Latitude</option>-->
-                            <!--<option value="type-longitude">Longitude</option>-->
-                        </optgroup>
-                        <optgroup label="Internet">
-                            <option value="type-email">Email</option>
-                            <option value="type-user-name">User Name</option>
-                            <option value="type-domain-name">Domain Name</option>
-                            <option value="type-domain-word">Domain Word</option>
-                            <option value="type-ip">IP</option>
-                        </optgroup>
-                        <optgroup label="Company">
-                            <option value="type-company-name">Company Name</option>
-                            <option value="type-company-suffix">Company Suffix</option>
-                            <option value="type-catch-phrase">Catch Phrase</option>
-                        </optgroup>
-                        <optgroup label="Text">
-                            <option value="type-sentence">Sentence</option>
-                            <option value="type-sentences">Sentences</option>
-                            <option value="type-paragraph">Paragraph</option>
-                            <option value="type-paragraphs">Paragraphs</option>
-                        </optgroup>
-                        <optgroup label="Other">
-                            <option value="type-number">Random number</option>
-                            <!--<option value="type-constant">Constant</option>-->
-                        </optgroup>
-                    </select>
-                </td>
-                <td>
-                    <button class="btn btn-small" data-ng-click="deleteColumn($index)"><i class="icon-trash"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <ul class="nav nav-tabs" id="output-tab">
+            <li class="active"><a href="#sql-tab">SQL</a></li>
+        </ul>
 
-    <ul class="nav nav-tabs" id="output-tab">
-        <li class="active"><a href="#sql-tab">SQL</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane active" id="sql-tab">
-            <form id="table-form" class="form-horizontal">
-                <div class="control-group">
-                    <label class="control-label">Row count</label>
+        <div class="tab-content">
+            <div class="tab-pane active" id="sql-tab">
+                <div class="control-group" data-ng-class="{error: form.rowcount.$invalid}">
+                    <label for="rowcount" class="control-label">Row count</label>
                     <div class="controls">
-                        <input type="number" min="1" id="row-count" placeholder="Number of generated rows" data-ng-model="table.rowCount"/>
+                        <input type="number" min="1" name="rowcount" id="rowcount" placeholder="Number of generated rows" data-ng-model="table.rowCount"/>
+                        <div data-ng-show="form.rowcount.$invalid">
+                            <span data-ng-show="form.rowcount.$error.number">This field must be number.</span>
+                            <span data-ng-show="form.rowcount.$error.min">This field must be larger than 1.</span>
+                        </div>
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label">Table name</label>
+                <div class="control-group" data-ng-class="{error: form.table_name.$invalid}">
+                    <label for="table-name" class="control-label">Table name</label>
                     <div class="controls">
-                        <input type="text" id="table-name" placeholder="Your table name" data-ng-model="table.name"/>
+                        <input type="text" name="table_name" id="table-name" placeholder="Your table name" data-ng-model="table.name" required/>
+                        <div data-ng-show="form.table_name.$invalid">
+                            <span data-ng-show="form.table_name.$error.required">This field is required.</span>
+                        </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Choose statement type</label>
                     <div class="controls">
                         <label class="radio">
-                            <input name="statement-type" type="radio" name="insert-statement" value="insert" data-ng-model="table.statementType" data-ng-checked="table.statementType == 'insert'">
+                            <input name="statement-type" type="radio" id="insert-statement" value="insert" data-ng-model="table.statementType" data-ng-checked="table.statementType == 'insert'">
                             Insert
                         </label>
                         <label class="radio">
@@ -140,7 +161,7 @@
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <button data-ng-click="generate()" class="btn btn-primary">
+                        <button data-ng-disabled="form.$invalid" data-ng-click="generate()" class="btn btn-primary">
                             <i class="icon-refresh icon-white"></i>
                             Generate
                         </button>
@@ -150,18 +171,17 @@
                         </button>
                     </div>
                 </div>
-            </form>
 
-            <div class="row-fluid">
-                <textarea rows="10" id="dataout" class="span12" data-ng-model="table.datas"></textarea>
+                <div class="row-fluid">
+                    <textarea rows="10" id="dataout" class="span12" data-ng-model="table.datas"></textarea>
+                </div>
             </div>
         </div>
-    </div>
-
+    </form>
 </div>
 
-<script type="text/javascript" src="../components/angular/angular.js"></script>
 <script type="text/javascript" src="../components/jquery/jquery.js"></script>
+<script type="text/javascript" src="../components/angular/angular.js"></script>
 <script type="text/javascript" src="../components/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="../components/faker/Faker.js"></script>
 <script type="text/javascript" src="../components/squel/index.js"></script>
